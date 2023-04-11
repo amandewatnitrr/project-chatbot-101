@@ -34,5 +34,12 @@
 
 It's not 1 algorithm doing all the thing, and there are 2 algorithms with it's training happening seprately, we will run into problems, not nessecarily all the time, but it does happen quite sometime.
 
+#### Bag of Words Model
+
+- So. let's assume an example, where a guy writes us a email asking, if we are back. The Wikipedia says in general a human uses only 3000 words out of almost 1.7 lakh words only at an average, assuming we use 20000 of the words, we categorize the words as SOS(Start of Statement), EOS(End of Statement), general words and than the remaining are special words.
+- So, let's assume that these 20,000 words are represented by an array or list of size 20,000. and we convert the sentence we recieved in the mail to a vector. Now our model needs to be trained to a dataset where for every statement is tested against it's response.
+- Now, once we have the data ready we're going to apply a model to create our bag of words. One of the models we can apply here to create our bag of words is logisitic regression. Once trained, it's likely that the model can yeild, what's likely to yield a yes, and what is likely to be a no. This is a NLP based approach.
+- Also, instead of a logisitc regression we can use a Neural Network cause we have a vector of 20,000 words, we can feed them as input to the input layer and obtain the output accordingly. This is an example of DNLP approach.
+
 </p>
 </strong>
