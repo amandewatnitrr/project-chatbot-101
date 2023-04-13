@@ -68,13 +68,13 @@
 - Here every single box is not one cell, it's actually a whole layer of neurons is represented by a single box. when working with a quite a huge text, than in such case many-to-many RNNs are the most effective. Because every time we will have a variable length input, and hence a variable length output.
 - To understand this better, let's move back to the understanding the approach back. Let's suppose the sentece is "Hello Kirill, Checking if you are back to  Oz.". So, what we are gonna do is, we take each signle word, and we code them. So, we're going to create a different route this time. One way to create it is we take those from that big vector of 20,000, and we only take the position of every word i.e. what is the position of those words in that collection of 20,000 words. This is how we construct the vector and the length of vector depends on the number of words in the input text.
 
-<img width="50%" src="../imgs/seq2seq_1.png"/>
+  <img width="50%" src="../imgs/seq2seq_1.png"/>
 
 - So, we're going to create our neural network with the text. But just keep in mind that in a machine sense, we do need to have numbers and it is possible to construct the vector of numbers from our email. And the vector size would be the same as the length of the mail. It will have SOS at the start and EOS at end. We drop SOS becuase, it's not that important. every sentence will start with SOS. While EOS is important because it will dictate that the output will terminate. So, now what we will do is we wil feed these values into our RNN.
 
 - As soon as we would encounter an EOS. It will start to process the statement. As it is a RNN, we can feed in any number of words. The inputs here are like parameters in the algorithm which is adjusted to the length of our input. Once, it is done, the network is going to start predicting approach. So, for every predicition, there are 20,00 possible outcomes, here we mean to say that for every word there's a probability of (1/20000) of any word appearing in the output. So, the end result will spit out a probability score for the options that it has, and it assigns probabilities to different words that it can pick up, and than pick the one with highest probabilty. It's upto the Neural Network to generate the right response, based on the training it has been through. So, the output generaed goes as a feedback for the next output which is what actually happens in a LSTM based model. This will make sure we're taking into account not just a memory that's flowing through, but we're using the output we generated before and that will help us help the neural netowrk preserve understand the meaning.
 
-![](../imgs/1600px-Long_Short-Term_Memory.svg.png)
+  ![](../imgs/1600px-Long_Short-Term_Memory.svg.png)
 
 - The Seq2Seq Model is based on Encoder-Decoder kind of architecture, where the input is encoded and the decoder decodes the upcoming response by taking the preceeding output as a feedback for the further output to be generated. So, basically we have 2 RNNs attached to each other.
 
@@ -82,7 +82,31 @@
 
 ### Seq2Seq Training
 
-<img width="50%" src="../imgs/seq2seq_2.png"/>
+  <img width="70%" src="../imgs/seq2seq_2.png"/>
+
+- Now, we have got an encoder and decoder which resembles a RNN. The difference b/w training and applying is that in this case, there's a specific end result, with certain probability. For training, we look at similar different  sentences. And we will have a full response already provided, as we already know the end result and that will allow us to train the result.
+
+- So, as the model gets trained, with the inputs, we need to update these parameters throught our training in order for neural network to learn from the training data by updating the weights. So, as soon as the input data is processed through training happening in a iterative process is going to look at different options that it can split out.
+
+- So, through the process of back propagation, this Seq2Seq Model is going to make sure that the probablity of getting a certain word is highest at this certain position. And accordingly it's going to update the weights and parameters of the network. Than what happens next is, it moves to the next word in the sentence, and the preceeding output is given as feedback along with the next word in the sentence and accordingly another word will be chosen which has the highest probabilty to occur at that position and similarly this will continue untill the sentence is obtained.
+
+<hr>
+
+### Greddy Decoding
+
+- We feed in the input to the network and then it produces the first word by picking up the one with highest probabilty. The next time it again picks up the next word with highest probabilty and this continues till EOS. And the reason it's called greedy is because every time we just  pick up the word with the highest probabilty.
+
+<hr>
+
+### Beam Search Decoding
+
+- Instead of just looking at one word with the highest probability, rather we look at 3-5 words with highest probability of occuring at a certain position which is fed back to the algorithm, which again picks up 3-5 words with highest probability for each of the precceding outcome generated, we again feed it back to the neural network which again produces set of output with highest probaility for each of the precceding outcome and this is how we get the results.
+
+  So, we pick up the most relevant outcome by looking at the highest joint probabilty across the whole bean or the branch with the highest score.
+
+  The difference in this case is that in greddy algorithm, we don't even consider looking into other branches, and just go ahead with a single approach by only picking up the one's with highest probability and no other options. Here, in Beam Search Decoding, we don't give emphasis on individual score of a word, rather we focuse more on Overall Joint Probability.
+
+  There's a method called `Truncating the Beams` where the algorithm simply stops looking at the joint/branch with lowest Joint Probabilty and just throws it away.
 
 </p>
 </strong>
