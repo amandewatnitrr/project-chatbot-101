@@ -106,7 +106,24 @@
 
   The difference in this case is that in greddy algorithm, we don't even consider looking into other branches, and just go ahead with a single approach by only picking up the one's with highest probability and no other options. Here, in Beam Search Decoding, we don't give emphasis on individual score of a word, rather we focuse more on Overall Joint Probability.
 
-  There's a method called `Truncating the Beams` where the algorithm simply stops looking at the joint/branch with lowest Joint Probabilty and just throws it away.
+  There's a method called `Truncating the Beams` where the algorithm simply stops looking at the joint/branch with lowest Joint Probabilty and just throws it away, and than only goes ahead with the branches with High Joint Probabilty.
+
+<hr>
+
+### Attention Mechanism
+  <img width="70%" src="../imgs/seq2seq_3.png"/>
+
+- So, before discussing about the Attention mechanism, let's first understand what's the flaws in the existing Seq2Seq Model. In the Seq2Seq, we feed in the data to the input Layers in the Neural network and than the input layer stores the complete infomation about the input and hence, in the last input layer of the Neural Network a lot of information is stored at once. And than it also, needs to be carried out to the further layers of the Neural Network so as to have the information processed.
+
+- So, this approach looks good only for smaller texts, but as the text input grows longer this becomes more and more bulky process as the data needs to be stored and carried through each layer of the network. So, the attention mechanism is based on the fact that each decoder layer of the Neural Network decides which input needs to be given more weightage as it has the complete access of the data. And through the step called the `Softmax function` the weights are distributed and the sum of weights assigned to all the input parameters must equal 1. So, these weights are taken and we make something called `Context vector`. The Context Vector is obtained by mutiplying the weights with the value in each input neural network or vector and is done every time before giving the input to the next layer in the Neural network along with the feedback. And than we feed this Context Vector to the Decoding Layer, and than we get the output, this output ss given as feedback to the next layer in the neural network along with a reevaluated Context Vector and hence accordingly the final output is generated.
+
+- The attention mechanism is a component in deep learning neural networks that allows the network to focus on specific parts of the input during processing. The idea is inspired by the way humans selectively focus on different parts of a scene when performing a task.
+
+- In a neural network with an attention mechanism, the network learns to assign weights to different parts of the input, based on their relevance to the current task. These weights are then used to compute a weighted sum of the input, which forms the basis for further processing by the network.
+
+- The attention mechanism is commonly used in natural language processing tasks, such as machine translation and language modeling. In these tasks, the attention mechanism allows the network to focus on different parts of the input sequence (e.g., words in a sentence) as it generates the output sequence.
+
+- The attention mechanism has been shown to improve the performance of neural networks in a variety of tasks, by allowing them to selectively focus on the most important parts of the input.
 
 </p>
 </strong>
