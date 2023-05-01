@@ -5,6 +5,18 @@
 
 <img width="40%" src="./../imgs/nlp_venn-diagram.png"/>
 
+
+- NLP stands for Natural Lanhguage Processing. It is a branch of Computer Science and more specifically the branch of AI concerned with giving comuters the ability to understand text and spoken words in much the same way as Human beings can.
+- NLP has two components:
+  
+  - NLU (Natural Language Understanding) - To interpret the statements and understand it's meaning
+  - NLG (Natural Language Generation) - To Generate text and speech, after understand a certain given input
+
+- NLP is about chacterizing, categorizing, comparing, converting and creating  any output suh as words, characters, sentences, documents and conversations or bringing out conclusions from them.
+- There's a huge demand in the next few years to scale the existing solutions and to create new solutions for all wwalks of life.
+- NLP is sppreadheading the move towards Genral Purpose Technology(GPT) and Artificial General Intelligence(AGI).
+- NLP techniques like transformers and Attention are finding applications in other research areas.
+
 - So, basically working with text data has 3 types of Machine Learning Lagorithm associated with it:
 
   - Natural Language Processing
