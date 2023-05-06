@@ -1,28 +1,21 @@
 import pandas as pd
+import numpy as np
 import statsmodels.api as sm
 
-# Load the data from CSV file
-data = pd.read_csv('data.csv')
+# Load data from CSV file
+data = pd.read_csv("DATASET_LOCATION")
 
-# Preprocessing data
-data['category'] = data['category'].astype('category')
-data['location'] = data['location'].astype('category')
+# Formula for the hierarchical GLM model
+formula = "category ~ location + filename"
 
-# One-hot encode categorical variables
-encoded_data = pd.get_dummies(data, columns=['location'])
+# Fit the model using the Poisson family and log link function
+model = sm.GLM.from_formula(formula, data=data, family=sm.families.Poisson())
 
-# Encoding ordinal variables
-encoded_data['file_name'] = encoded_data['file_name'].astype('category')
-encoded_data['file_name'] = encoded_data['file_name'].cat.codes
+# Predict the category of a new file
+new_file_location = "NEW_FILE_LOCATION"
+new_file_name = "NEW_FILE_NAME"
+new_file_data = {"location": new_file_location, "filename": new_file_name}
+new_file_df = pd.DataFrame(new_file_data, index=[0])
+predicted_category = model.predict(new_file_df)[0]
 
-# Fitting  HGLM model
-model = sm.GLM.from_formula(
-    'category ~ file_name + location',
-    data=encoded_data,
-    family=sm.families.Binomial(),
-    groups=encoded_data['location'].cat.codes
-)
-result = model.fit()
-
-# Print the summary of the model
-print(result.summary())
+print("The predicted category of the file is:", predicted_category)

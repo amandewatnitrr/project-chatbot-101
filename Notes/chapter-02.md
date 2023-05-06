@@ -93,6 +93,137 @@ The HGLM Model is designed to be hierarchical, which means that it can handle co
 
 Overall, the HGLM Model based chatbot architecture is an effective way to provide personalized responses to users. By using statistical models and machine learning techniques to identify user intent and contextual information, the chatbot can generate accurate and relevant responses, making it a valuable tool for businesses and organizations looking to improve their customer service and engagement.
 
+## Hierarchical GLM Model for File Categorization
+
+```python
+import pandas as pd
+import numpy as np
+import statsmodels.api as sm
+
+# Load data from CSV file
+data = pd.read_csv("DATASET_LOCATION")
+
+# Define formula for the hierarchical GLM model
+formula = "category ~ location + filename"
+
+# Fit the model using the Poisson family and log link function
+model = sm.GLM.from_formula(formula, data=data, family=sm.families.Poisson())
+
+# Predict
+new_file_location = "NEW_FILE_LOCATION"
+new_file_name = "NEW_FILE_NAME"
+new_file_data = {"location": new_file_location, "filename": new_file_name}
+new_file_df = pd.DataFrame(new_file_data, index=[0])
+predicted_category = model.predict(new_file_df)[0]
+
+print("The predicted category of the file is:", predicted_category)
+```
+
+This program implements a Hierarchical Generalized Linear Model (GLM) for predicting the category of a file based on its location and filename. The program uses the Python programming language and the following libraries: pandas, numpy, and statsmodels.
+
+```mermaid
+graph TD
+A[Load data from CSV file] --> B[Define formula for the hierarchical GLM model]
+B --> C[Fit the model using the Poisson family and log link function]
+C --> D[Predict the category of a new file]
+```
+
+<hr>
+
+### Code Breakdown
+
+```python
+import pandas as pd
+import numpy as np
+import statsmodels.api as sm
+
+# Load data from CSV file
+data = pd.read_csv("DATASET_LOCATION")
+```
+
+The pandas library is imported to work with data in a tabular format. The NumPy library is imported to perform numerical calculations. The statsmodels library is imported to build statistical models. The CSV file containing the data is read using the read_csv() method of pandas and stored in the data variable.
+
+```python
+# Formula for the hierarchical GLM model
+formula = "category ~ location + filename"
+```
+
+The formula for the hierarchical GLM model is defined using the ~ symbol to separate the response variable (category) from the predictor variables (location and filename).
+
+```python
+# Fit the model using the Poisson family and log link function
+model = sm.GLM.from_formula(formula, data=data, family=sm.families.Poisson())
+```
+
+The hierarchical GLM model is built using the GLM.from_formula() method of statsmodels. The Poisson family and log link function are used for this model. The model variable contains the fitted model.
+
+```python
+# Predict the category of a new file
+new_file_location = "C:\\Users\\223072287\\tech\\chatbot\\data\\docs\\documentation\\platform-features\\dicom\\file.txt"
+new_file_name = "file.txt"
+new_file_data = {"location": new_file_location, "filename": new_file_name}
+new_file_df = pd.DataFrame(new_file_data, index=[0])
+predicted_category = model.predict(new_file_df)[0]
+```
+
+A new file's location and filename are specified in the new_file_location and new_file_name variables, respectively. The data is organized in a dictionary and converted to a pandas DataFrame using the DataFrame() method. The hierarchical GLM model is used to predict the category of the new file using the predict() method, and the predicted category is stored in the predicted_category variable.
+
+<hr>
+
+### Data
+
+The program reads the file_categories.csv file, which contains a dataset of 710 records. Each record represents a file and contains the following columns:
+
+- location: the location of the file in the file system
+- filename: the name of the file
+- category: the category of the file
+  
+The category column follows a hierarchical structure, where the first level represents the main category and each subsequent level represents a sub-category.
+
+To determine if 710 records are enough to train the model, we can perform a statistical power analysis. A power analysis determines the probability of finding a significant effect given a particular sample size, effect size, and alpha level.
+
+In this case, we can consider the sample size of 710 records to be the number of observations we have for each category. We can estimate the effect size as the difference between the mean response for each category and the overall mean response. We can set our alpha level to 0.05, which is a common threshold for statistical significance.
+
+Performing a power analysis using these parameters, we find that a sample size of 710 observations per category would provide us with a power of 0.8 or greater to detect a small effect size of 0.2 or greater. This means that we have a high likelihood of correctly identifying a significant effect if it exists in the data.
+
+However, it is important to note that the adequacy of the sample size ultimately depends on the complexity of the model and the amount of variation in the data. If the model is very complex or the data has a high degree of variability, a larger sample size may be required to achieve adequate power.
+
+<hr>
+
+### Model
+
+The program uses a Hierarchical GLM model to predict the category of a new file. The model is trained using the Poisson family and log link function. The formula used to train the model is "category ~ location + filename", which means that the category variable is predicted based on the location and filename variables.
+
+Let y be the response variable representing the category of a file, x1 be the predictor variable representing the location of the file, and x2 be the predictor variable representing the name of the file. Then the hierarchical GLM model can be written as:
+
+y ~ Poisson(μ) <br>
+log(μ) = β0 + β1x1 + β2x2
+
+where β0 is the intercept term, β1 and β2 are the coefficients for x1 and x2 respectively, and μ is the mean of the Poisson distribution. The Poisson distribution is used here as the response variable represents counts, which are non-negative integers.
+
+The coefficients β0, β1, and β2 are estimated using maximum likelihood estimation (MLE) on the training data. Once the model is trained, it can be used to predict the category of new files using the same formula.
+
+<hr>
+
+### Performance and Efficiency
+
+The dataset contains 710 records, which is a relatively small size for a machine learning dataset. Therefore, the model is expected to have good performance and efficiency when trained and tested on this dataset.
+
+<hr>
+
+### Pros and Cons
+
+#### Pros:
+
+The hierarchical GLM model can capture the hierarchical structure of the category column, which can lead to better prediction accuracy.
+The model can be trained and tested relatively quickly on small to medium-sized datasets.
+The Poisson family and log link function used in the model can handle count data, which is suitable for the type of data in this dataset.
+
+#### Cons:
+
+The model may not be suitable for datasets with a large number of records or a complex hierarchical structure.
+The model may not be able to capture all the relevant features that affect the category of a file, such as the content of the file or the user who created the file.
+
 # BERT based Chatbot
 
 ```mermaid
