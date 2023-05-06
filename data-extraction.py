@@ -6,9 +6,13 @@ root_folder = '/path/to/git/repo'
 def categorize_files(root_folder):
     categories = {}
     for dirpath, dirnames, filenames in os.walk(root_folder):
+        if ".git" in dirpath:
+            continue
+        category = dirpath.replace(root_folder, '').strip('/')
+        if category == '':
+            category = 'uncategorized'
         for filename in filenames:
             full_path = os.path.join(dirpath, filename)
-            category = dirpath.replace(root_folder, '').strip('/')
             if category not in categories:
                 categories[category] = []
             categories[category].append((filename, full_path))
