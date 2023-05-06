@@ -159,8 +159,8 @@ The hierarchical GLM model is built using the GLM.from_formula() method of stats
 
 ```python
 # Predict the category of a new file
-new_file_location = "C:\\Users\\223072287\\tech\\chatbot\\data\\docs\\documentation\\platform-features\\dicom\\file.txt"
-new_file_name = "file.txt"
+new_file_location = "file_location"
+new_file_name = "file_name.file_extension"
 new_file_data = {"location": new_file_location, "filename": new_file_name}
 new_file_df = pd.DataFrame(new_file_data, index=[0])
 predicted_category = model.predict(new_file_df)[0]
